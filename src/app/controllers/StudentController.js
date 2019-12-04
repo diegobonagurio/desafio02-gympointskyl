@@ -57,10 +57,10 @@ class UserController {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const { email } = req.body;
-
     // O email vai ser a chave principal para encontrar o estudante para mudar
     // o cadastro
+
+    const { email } = req.body;
 
     const student = await Student.findOne({ where: { email } });
 
@@ -70,20 +70,17 @@ class UserController {
       if (studentsExists) {
         return res.status(400).json({ error: 'Student already exists' });
       }
-
-      const { id, name, idade, weight, height } = await student.update(
-        req.body
-      );
-
-      return res.json({
-        id,
-        name,
-        email,
-        idade,
-        weight,
-        height,
-      });
     }
+    const { id, name, idade, weight, height } = await student.update(req.body);
+
+    return res.json({
+      id,
+      name,
+      email,
+      idade,
+      weight,
+      height,
+    });
   }
 }
 
